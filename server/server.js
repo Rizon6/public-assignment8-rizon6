@@ -173,6 +173,29 @@ app.get("/api/users", async (req, res) => {
   return res.status(200).json(users); // return list of users
 });
 
+app.get("/api/yelp/businesses/search", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+
+    const response = await fetch(
+      `https://api.yelp.com/v3/businesses/search?${params}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.YELP_API_KEY}`,
+        },
+      }
+    );
+    const data = await response.json();
+
+    return res.status(response.status).json(data);
+  } catch (err) {
+    console.error("Yelp error:", err);
+    return res.status(500).json({
+      error: "Yelp request failed.",
+    });
+  }
+});
+
 app.post("/api/testUsers", async (req, res) => {
   const testUser1 = {
     username: "Rizon",

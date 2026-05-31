@@ -1,4 +1,5 @@
-const SEARCH_PATH = "/api/yelp/businesses/search";
+const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+const SEARCH_PATH = `${baseUrl}/api/yelp/businesses/search`;
 
 async function searchBusinesses(term, location, sortBy) {
 
