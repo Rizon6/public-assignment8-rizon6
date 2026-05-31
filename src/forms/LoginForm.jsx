@@ -12,6 +12,7 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
 
   // if token present, navigate to profile page
   useEffect(() => {
@@ -33,7 +34,7 @@ function LoginForm() {
     }
 
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch(`${baseUrl}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
